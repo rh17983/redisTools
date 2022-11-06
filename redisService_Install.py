@@ -1,6 +1,9 @@
 import threading
 import os
 
+key_param = "-i /home/usi/.ssh/controller-root"
+ssh_params = "-i /home/usi/.ssh/controller-root -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+
 fileNameNodes = "redisService_nodes_to_install.txt"
 nodes = [line.rstrip('\n') for line in open(fileNameNodes)]
 
@@ -22,16 +25,16 @@ class myThread(threading.Thread):
 
         # time.sleep(3)
 
-        myCmd = 'scp ' + fileNameInstallationSource + ' ubuntu@' + self.node + ':' + fileNameInstallationTarget
+        myCmd = "scp " + key_param + " " + fileNameInstallationSource + " ubuntu@" + self.node + ":" + fileNameInstallationTarget
         os.system(myCmd)
 
-        myCmd = "ssh ubuntu@" + self.node + " 'sudo chown -R $USER:$USER " + fileNameInstallationTarget + "'"
+        myCmd = "ssh " + ssh_params + " ubuntu@" + self.node + " 'sudo chown -R $USER:$USER " + fileNameInstallationTarget + "'"
         os.system(myCmd)
 
-        myCmd = "ssh ubuntu@" + self.node + " 'chmod +x " + fileNameInstallationTarget + "'"
+        myCmd = "ssh " + ssh_params + " ubuntu@" + self.node + " 'chmod +x " + fileNameInstallationTarget + "'"
         os.system(myCmd)
 
-        myCmd = "ssh ubuntu@" + self.node + " 'sudo " + fileNameInstallationTarget + "'"
+        myCmd = "ssh " + ssh_params + " ubuntu@" + self.node + " 'sudo " + fileNameInstallationTarget + "'"
         os.system(myCmd)
 
         print(self.name, ": Exit.")
