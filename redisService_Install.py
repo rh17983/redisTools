@@ -1,7 +1,6 @@
 import threading
 import os
 
-key_param = "-i /home/usi/.ssh/controller-root"
 ssh_params = "-i /home/usi/.ssh/controller-root -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
 fileNameNodes = "redisService_nodes_to_install.txt"
@@ -9,6 +8,10 @@ nodes = [line.rstrip('\n') for line in open(fileNameNodes)]
 
 fileNameInstallationSource = "redis_installation.sh"
 fileNameInstallationTarget = "/home/ubuntu/redis_installation.sh"
+
+fileNameInstallationSource_2 = "redis-5.0.5.tar.gz"
+fileNameInstallationTarget_2 = "/home/ubuntu/redis-5.0.5.tar.gz"
+
 
 
 class myThread(threading.Thread):
@@ -25,7 +28,10 @@ class myThread(threading.Thread):
 
         # time.sleep(3)
 
-        myCmd = "scp " + key_param + " " + fileNameInstallationSource + " ubuntu@" + self.node + ":" + fileNameInstallationTarget
+        myCmd = "scp " + ssh_params + " " + fileNameInstallationSource + " ubuntu@" + self.node + ":" + fileNameInstallationTarget
+        os.system(myCmd)
+
+        myCmd = "scp " + ssh_params + " " + fileNameInstallationSource_2 + " ubuntu@" + self.node + ":" + fileNameInstallationTarget_2
         os.system(myCmd)
 
         myCmd = "ssh " + ssh_params + " ubuntu@" + self.node + " 'sudo chown -R $USER:$USER " + fileNameInstallationTarget + "'"
