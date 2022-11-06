@@ -1,4 +1,4 @@
-wget http://download.redis.io/releases/redis-5.0.5.tar.gz
+# wget http://download.redis.io/releases/redis-5.0.5.tar.gz
 tar xzf redis-5.0.5.tar.gz
 sudo mv redis-5.0.5 /etc/redis
 cd /etc/redis

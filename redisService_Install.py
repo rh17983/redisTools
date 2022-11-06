@@ -13,7 +13,6 @@ fileNameInstallationSource_2 = "redis-5.0.5.tar.gz"
 fileNameInstallationTarget_2 = "/home/ubuntu/redis-5.0.5.tar.gz"
 
 
-
 class myThread(threading.Thread):
 
     def __init__(self, threadID, name, counter, node):
