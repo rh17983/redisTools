@@ -9,7 +9,7 @@ nodes = [line.rstrip('\n') for line in open(fileName)]
 # Start Redis on each node
 for node in nodes:
     # Copy the service configuration to each node
-    myCmd = 'scp ' + ssh_params + '6378.conf ubuntu@' + node + ':~/6378.conf'
+    myCmd = 'scp ' + ssh_params + ' 6378.conf ubuntu@' + node + ':~/6378.conf'
     os.system(myCmd)
 
     myCmd = "ssh " + ssh_params + " ubuntu@" + node + " 'sudo mv -f ~/6378.conf /etc/redis/6378.conf' "
